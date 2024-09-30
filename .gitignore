@@ -1,2 +1,2 @@
-src/test/__pycache__
-src/core/__pycache__
+__pycache__
+.venv
