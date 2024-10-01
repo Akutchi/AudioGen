@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -14,6 +15,9 @@ class ImageGenerator:
 
 
     def __Generate_Wave_Image (self, wave):
+
+        if os.path.exists(self.__Location):
+            os.remove(self.__Location)
 
         t = np.arange (M_C.PI, M_C.PI + 2.0 * M_C.TWO_PI, 0.01)
         values = [wave.Get_Value (ti) for ti in t]

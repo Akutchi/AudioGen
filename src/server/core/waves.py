@@ -17,7 +17,7 @@ class Waves (Base_Object) :
         Func_Value = 0.0
         for I in range (0, len (self.__Amplitude)):
 
-            Elementary_Val = (np.cos (t) if self.__Base_Func [I] == "cos"
+            Elementary_Val = (np.cos (t) if self.__Base_Func [I] == "Cos"
                                          else np.sin(t))
 
             Func_Value += self.__Amplitude [I] * Elementary_Val

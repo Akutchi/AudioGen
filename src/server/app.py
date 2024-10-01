@@ -13,15 +13,15 @@ class FunctionJSON (BaseModel):
     functions   : Union [List[str], None] = []
 
 
-app = FastAPI ()
+visitor = C_IG.ImageGenerator ()
 
+app = FastAPI ()
 app.add_middleware (CORSMiddleware, allow_origins='*', allow_methods=["POST"])
 
 @app.post ("/Get_Wave_With")
 def Generate_Wave_Image (item : FunctionJSON):
 
     wave = C_W.Waves (item.amplitudes, item.functions)
-    visitor = C_IG.ImageGenerator ()
     wave.Generate_Image (visitor)
 
     return responses.FileResponse ("imgs/wave_img.png")
