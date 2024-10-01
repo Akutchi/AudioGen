@@ -24,4 +24,4 @@ def Generate_Wave_Image (item : FunctionJSON):
     visitor = C_IG.ImageGenerator ()
     wave.Generate_Image (visitor)
 
-    return responses.FileResponse ("../imgs/wave_img.png")
+    return responses.FileResponse ("imgs/wave_img.png")

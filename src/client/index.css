@@ -1,3 +1,55 @@
-.Func {
-    border: 1px solid black;
+body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+#CosFunc {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+#SinFunc {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+hr {
+    width: 25%;
+}
+
+#FilterFunc {
+    grid-area: 2 / 1 / 3 / 3;
+}
+
+h3 {
+    margin-left: 25%;
+}
+
+#addCos, #addSin, #addFilter {
+    margin-left: 50%;
+
+}
+
+.SimpleFunc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 3px;
+}
+
+.SimpleFunc > img {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.Wave_Img {
+    width: 45%;
+}
+
+.SimpleFunc > p {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.SimpleFunc > input {
+    grid-area: 1 / 3 / 3 / 4;
+    text-align: center;
 }

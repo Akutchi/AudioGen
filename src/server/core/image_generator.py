@@ -7,8 +7,11 @@ import maths.constants as M_C
 
 class ImageGenerator:
 
+
     def __init__ (self):
-        pass
+
+        self.__Location = "imgs/wave_img.png"
+
 
     def __Generate_Wave_Image (self, wave):
 
@@ -21,7 +24,7 @@ class ImageGenerator:
         ax.grid (True)
 
         plt.plot (t, values)
-        plt.savefig ("../imgs/wave_img.png", bbox_inches='tight')
+        plt.savefig (self.__Location, bbox_inches='tight')
 
 
 
