@@ -9,12 +9,12 @@ from .object import Base_Object
 class Waves (Base_Object) :
 
     def __init__ (self, Amplitude : List[float], Shift : List[float],
-                  Function : List[str], T : float) :
+                  Function : List[str], Period : float) :
 
-        self.__Amplitude = Amplitude
-        self.__Shift = Shift
+        self.__A = Amplitude
+        self.__Phi = Shift
         self.__Base_Func = Function
-        self.__Period = T
+        self.__T = Period
 
 
     def Get_Value (self, x : float) -> any:
@@ -22,10 +22,10 @@ class Waves (Base_Object) :
         epsilon = 1E-3
         Func_Value = 0.0
         cos_i, sin_i, n = 0.0, 0.0, 0.0
-        for I in range (0, len (self.__Amplitude)):
+        for I in range (0, len (self.__A)):
 
-            Ai = self.__Amplitude [I]
-            Phi_i = self.__Shift [I]
+            Ai = self.__A [I]
+            Phi_i = self.__Phi [I]
             f_i = self.__Base_Func [I]
             xi = 0.0
 
@@ -37,7 +37,7 @@ class Waves (Base_Object) :
                 sin_i += 1
                 n = sin_i
 
-            xi = n * x * (M_C.TWO_PI / self.__Period)
+            xi = n * x * (M_C.TWO_PI / self.__T)
 
             Elementary_Val = (np.cos (xi + Phi_i) if f_i == "Cos"
                                                  else np.sin(xi + Phi_i))

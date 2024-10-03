@@ -2,7 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from core.waves import Waves
+from core import waves, filters
 
 import maths.constants as M_C
 
@@ -11,7 +11,8 @@ class ImageGenerator:
 
     def __init__ (self):
 
-        self.__Location = "imgs/wave_img.png"
+        self.__Wave_Location = "imgs/wave_img.png"
+        self.__Filter_Location = "imgs/filter_img.png"
 
 
     def __Generate_Wave_Image (self, wave):
@@ -28,12 +29,31 @@ class ImageGenerator:
 
         plt.axhline (y=0.0, color="black", linestyle="dotted")
         plt.plot (t, values)
-        plt.savefig (self.__Location, bbox_inches='tight')
+        plt.savefig (self.__Wave_Location, bbox_inches='tight')
 
+    def __Generate_Filter_Image (self, filter):
+
+        t = np.logspace (0, 1E3, 100)
+        values = [filter.Get_Value (ti) for ti in t]
+
+        ax = plt.gca ()
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        ax.set_xscale('log')
+        ax.grid (True)
+
+        plt.clf()
+
+        plt.axhline (y=0.0, color="black", linestyle="dotted")
+        plt.plot (t, values)
+        plt.savefig (self.__Filter_Location, bbox_inches='tight')
 
 
     def Generate (self, Class_Type):
 
-        if isinstance (Class_Type, Waves):
+        if isinstance (Class_Type, waves.Waves):
             self.__Generate_Wave_Image (Class_Type)
+
+        elif isinstance (Class_Type, filters.Filters):
+            self.__Generate_Filter_Image (Class_Type)
 
