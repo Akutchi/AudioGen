@@ -1,6 +1,6 @@
 # AudioGen
 
-![Visual](./doc/Visual_scaled.png)
+![Visual](./doc/Visual.png)
 
 A basic wave generator and filtering app in python (with sound !)
 
@@ -14,9 +14,9 @@ The API, developped with fastapi, is composed of two routes,
 needs a json of the form
 ```json
 {
-    amplitudes : [],
-    shifts : [],
-    functions : []
+    "amplitudes" : [],
+    "shifts" : [],
+    "functions" : []
 }
 ```
 
@@ -27,8 +27,8 @@ and return an image of the wave as described by the JSON
 needs a json of the form
 ```json
 {
-    coefficients : [],
-    gain : x
+    "coefficients" : [],
+    "gain" : x
 }
 ```
 
