@@ -16,9 +16,6 @@ class ImageGenerator:
 
     def __Generate_Wave_Image (self, wave):
 
-        if os.path.exists(self.__Location):
-            os.remove(self.__Location)
-
         t = np.arange (M_C.PI, M_C.PI + 2.0 * M_C.TWO_PI, 0.01)
         values = [wave.Get_Value (ti) for ti in t]
 
@@ -27,6 +24,9 @@ class ImageGenerator:
         ax.set_yticklabels([])
         ax.grid (True)
 
+        plt.clf()
+
+        plt.axhline (y=0.0, color="black", linestyle="dotted")
         plt.plot (t, values)
         plt.savefig (self.__Location, bbox_inches='tight')
 
