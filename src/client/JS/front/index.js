@@ -12,8 +12,9 @@ function AddVariable (type, Text, Default_Value) {
 
     input.onchange = async function(event) {
 
-        Json = await type == "Filter" ? ChangeImage (event, GET_FILTER_IMAGE) :
-        ChangeImage (event, GET_WAVE_IMAGE);
+        Json = await type == "Filter" ?
+        ChangeImageOnInputChange (event, GET_FILTER_IMAGE) :
+        ChangeImageOnInputChange (event, GET_WAVE_IMAGE);
 
         UpdateResult;
     };

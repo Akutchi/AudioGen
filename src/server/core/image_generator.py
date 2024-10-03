@@ -20,11 +20,6 @@ class ImageGenerator:
         t = np.arange (M_C.PI, M_C.PI + 2.0 * M_C.TWO_PI, 0.01)
         values = [wave.Get_Value (ti) for ti in t]
 
-        ax = plt.gca ()
-        ax.set_xticklabels([])
-        ax.set_yticklabels([])
-        ax.grid (True)
-
         plt.clf()
 
         plt.axhline (y=0.0, color="black", linestyle="dotted")
@@ -33,16 +28,13 @@ class ImageGenerator:
 
     def __Generate_Filter_Image (self, filter):
 
-        t = np.logspace (0, 1E3, 100)
+        t = np.arange (0, 1E3, 0.01)
         values = [filter.Get_Value (ti) for ti in t]
 
-        ax = plt.gca ()
-        ax.set_xticklabels([])
-        ax.set_yticklabels([])
-        ax.set_xscale('log')
-        ax.grid (True)
-
         plt.clf()
+
+        ax = plt.gca ()
+        ax.set_xscale('log')
 
         plt.axhline (y=0.0, color="black", linestyle="dotted")
         plt.plot (t, values)
