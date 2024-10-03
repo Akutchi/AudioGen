@@ -29,15 +29,23 @@ class ImageGenerator:
     def __Generate_Filter_Image (self, filter):
 
         t = np.arange (0, 1E3, 0.01)
-        values = [filter.Get_Value (ti) for ti in t]
+        Module, Phase = [], []
+        for ti in t:
+
+            H = filter.Get_Value (ti)
+            Module.append (H [0])
+            Phase.append (H [1])
 
         plt.clf()
-
         ax = plt.gca ()
         ax.set_xscale('log')
 
-        plt.axhline (y=0.0, color="black", linestyle="dotted")
-        plt.plot (t, values)
+        plt.subplot (2, 1, 1)
+        plt.plot (t, Module)
+
+        plt.subplot (2, 1, 2)
+        plt.plot (t, Phase)
+
         plt.savefig (self.__Filter_Location, bbox_inches='tight')
 
 

@@ -4,7 +4,7 @@ Func_Var = [
 ]
 
 Filter_Var = [
-    {name: "coefficients", default_value : "0.0"},
+    {name: "coefficients", default_value : "1.0 10.0"},
     {name: "gain", default_value : "1.0"}
 ]
 

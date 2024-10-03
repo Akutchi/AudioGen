@@ -50,7 +50,7 @@ async function AddDefault (type) {
 
 
     json_file = {
-        coefficients : [0.0],
+        coefficients : [1.0, 0.1],
         Gain : 1.0
     }
     ROUTER = GET_FILTER_IMAGE
