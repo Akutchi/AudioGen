@@ -2,25 +2,47 @@ from typing import List
 
 import numpy as np
 
+import maths.constants as M_C
+
 from .object import Base_Object
 
 class Waves (Base_Object) :
 
-    def __init__ (self, Amplitude : List[float], Function : List[str]) :
+    def __init__ (self, Amplitude : List[float], Shift : List[float],
+                  Function : List[str], T : float) :
+
         self.__Amplitude = Amplitude
+        self.__Shift = Shift
         self.__Base_Func = Function
+        self.__Period = T
 
 
-    def Get_Value (self, t : float) -> any:
+    def Get_Value (self, x : float) -> any:
 
         epsilon = 1E-3
         Func_Value = 0.0
+        cos_i, sin_i, n = 0.0, 0.0, 0.0
         for I in range (0, len (self.__Amplitude)):
 
-            Elementary_Val = (np.cos (t) if self.__Base_Func [I] == "Cos"
-                                         else np.sin(t))
+            Ai = self.__Amplitude [I]
+            Phi_i = self.__Shift [I]
+            f_i = self.__Base_Func [I]
+            xi = 0.0
 
-            Func_Value += self.__Amplitude [I] * Elementary_Val
+            if f_i == "Cos":
+                cos_i += 1
+                n = cos_i
+
+            else:
+                sin_i += 1
+                n = sin_i
+
+            xi = n * x * (M_C.TWO_PI / self.__Period)
+
+            Elementary_Val = (np.cos (xi + Phi_i) if f_i == "Cos"
+                                                 else np.sin(xi + Phi_i))
+
+            Func_Value += Ai * Elementary_Val
 
         if abs (Func_Value) < epsilon:
             return 0.00

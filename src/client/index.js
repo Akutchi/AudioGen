@@ -1,6 +1,6 @@
 const GET_WAVE_IMAGE  ="http://127.0.0.1:8000/Get_Wave_With";
 
-function Add (Element, Child_List) {
+function AddChildsNode (Element, Child_List) {
 
     Child_List.forEach(C => {
         Element.appendChild (C)
@@ -9,20 +9,38 @@ function Add (Element, Child_List) {
     return Element;
 }
 
+function getAncestor (element, level) {
+
+    if (level == 1) {
+        return element.parentElement;
+    }
+
+    return getAncestor (element.parentElement, level-1);
+}
+
 async function UpdateResult () {
 
     json_file = {
         amplitudes : [],
+        shifts : [],
         functions : []
     }
 
     Input_List = document.querySelectorAll ("input");
-    //Input_List = Object.values(Input_List).filter ((i => {i.parentElement.parentElement.id != "Filters"}));
 
     Input_List.forEach(input => {
 
-        (json_file.amplitudes).push (input.value);
-        (json_file.functions).push (input.parentElement.parentElement.id.slice (0, 3));
+        let class_name = input.className;
+        let variable_value = input.value;
+
+        if (class_name == "amplitude") {
+            (json_file.amplitudes).push (variable_value);
+            (json_file.functions).push (getAncestor(input, 3).id.slice (0, 3));
+
+        } else if (class_name = "shift") {
+            (json_file.shifts).push (variable_value);
+        }
+
     });
 
     Req = {
@@ -41,31 +59,45 @@ async function UpdateResult () {
                                                             "result.png")));
 }
 
+function AddVariable (Text, Default_Value) {
+
+    divVar = document.createElement ("div");
+    divVar.setAttribute ("class", "variable_set");
+
+    p = document.createElement ("p");
+    p.innerHTML = Text + " :";
+
+    input = document.createElement ("input");
+    input.setAttribute ("value", Default_Value);
+    input.setAttribute ("class", Text);
+    input.onchange = UpdateResult;
+
+    return AddChildsNode (divVar, [p, input]);
+
+}
+
 function CreateFunction (type, img_data) {
 
-    div = document.createElement ("div");
-    div.setAttribute ("class", "SimpleFunc")
+    divFunc = document.createElement ("div");
+    divFunc.setAttribute ("class", "SimpleFunc")
 
     img = document.createElement ("img");
     img.setAttribute ("src", URL.createObjectURL (new File ([img_data.value],
                                                             "wave.png")));
     img.setAttribute ("class", "Wave_Img");
 
-    p = document.createElement ("p");
-    p.innerHTML = "Amplitude : ";
+    amp = AddVariable ("amplitude", "1.0");
+    phi = AddVariable ("shift", "0.0");
 
-    input = document.createElement ("input");
-    input.setAttribute ("value", "1.0");
-    input.onchange = UpdateResult;
-
-    return Add (div, [img, p, input]);
+    return AddChildsNode (divFunc, [img, amp, phi]);
 }
 
 async function AddDefault (type) {
 
     json_file = {
         amplitudes : [1.0],
-        functions : [type]
+        shifts     : [0.0],
+        functions  : [type]
     }
 
     Req = {
