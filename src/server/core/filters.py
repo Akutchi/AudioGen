@@ -16,6 +16,9 @@ class Filters:
             ci = self.__C [I]
             denominator += ci * pow (f, I)
 
+        if denominator == 0.0:
+            denominator = 1.0
+
         return self.__K / denominator
 
     def Generate_Image (self, visitor):

@@ -1,12 +1,3 @@
-function getAncestor (element, level) {
-
-    if (level == 1) {
-        return element.parentElement;
-    }
-
-    return getAncestor (element.parentElement, level-1);
-}
-
 function GetFunctions (Input_List) {
 
     json_file = {
@@ -68,6 +59,39 @@ function GetFilters (Input_List) {
 function Filter (Functions, Filters) {
 
     return Functions;
+}
+
+async function GetImageFromServer (json_file, router) {
+
+    Req = {
+        method : "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify (json_file)
+    }
+
+    const Response = await fetch (router, Req)
+    .then (response => {return response.body.getReader().read()});
+
+    return Response;
+
+}
+
+async function ChangeImage (event, router) {
+
+    const grand_parent = event.target.parentElement.parentElement;
+    const childs = grand_parent.childNodes;
+
+    Json = {
+            amplitudes : [childs.item (1).childNodes.item (1).value],
+            functions  : [grand_parent.parentElement.id.slice (0, 3)],
+            shifts     : [childs.item (2).childNodes .item (1).value]
+    };
+
+    Image_Object = await GetImageFromServer (Json, router);
+
+    childs.item (0).setAttribute ("src", URL.createObjectURL (new File ([Image_Object.value], "img.png")));
 }
 
 async function UpdateResult () {
