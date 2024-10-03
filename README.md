@@ -2,7 +2,7 @@
 
 ![Visual](./doc/Visual.png)
 
-A basic wave generator and filtering app in python (with sound !)
+A basic wave generator and filtering API (with sound !)
 
 # Description
 
@@ -28,7 +28,7 @@ needs a json of the form
 ```json
 {
     "coefficients" : [],
-    "gain" : x
+    "gain" : "int"
 }
 ```
 
