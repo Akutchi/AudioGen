@@ -7,13 +7,13 @@ A basic wave generator and filtering API (with sound !)
 
 # Description
 
-This website, is an interface to a signal processing API.
+This website is an interface to a signal processing API.
 The API, developped with fastapi, is composed of several routes,
 
 - /Get_Wave_With :
 
 needs a json of the form
-```json
+```javascript
 {
     "amplitudes" : [1.0, 2.0, 0.5],
     "shifts"     : [0.2, 0.5, 1.2],
@@ -26,7 +26,7 @@ and return an image of the wave.
 - /Get_Wave_Sound :
 
 needs a json of the form
-```json
+```javascript
 {
     "amplitudes" : [1.0, 2.0, 0.5],
     "shifts"     : [0.2, 0.5, 1.2],
@@ -39,9 +39,9 @@ and return a base64 encoding of a .wav file of the wave
 - /Get_Filter_With :
 
 needs a json of the form
-```json
+```javascript
 {
-    "coefficients" : [2.0, 10.0, 2.0], // "order", "fc/f0", "Q"
+    "coefficients" : [1.0, 10.0],  // "order", "fc/f0", "Q"
     "gain" : 2.0
 }
 ```
