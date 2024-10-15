@@ -49,6 +49,7 @@ Either way, those are :
 - scipy >= 1.10.1
 - matplotlib >= 3.7.5
 - fastAPI >= 0.1.0
+- pymp3 >= 0.2.0
 - Unittest
 
 To lunch the backend, please use ```fastapi dev src/server/app.py``` in ./src

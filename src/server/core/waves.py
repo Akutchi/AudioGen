@@ -17,6 +17,8 @@ class Waves (Base_Object) :
         self.__Base_Func = Function
         self.__T = Period
 
+        self.__Audio = []
+
 
     def Get_Value (self, x : float) -> any:
 
@@ -65,15 +67,17 @@ class Waves (Base_Object) :
 
     def Generate_Sound (self):
 
-        sample_rate = 44100
-        duration_ms = 2000
-        num_samples = duration_ms * (sample_rate / 1000.0)
-        audio = []
-        for t in range (0, num_samples):
-            audio.append (self.Get_Value (t))
+        sample_rate = 44100.0
+        duration_ms = 2000.0
+        num_samples = int (duration_ms * (sample_rate / 1000.0))
 
-        np_audio = np.array(self.audio).astype(np.float32)
-        sp.io.wavfile.write("./sound/sound.wav", sample_rate, np.array(np_audio))
+        for t in range (0, num_samples):
+            self.__Audio.append (self.Get_Value (t))
+
+        np_audio = np.array(self.__Audio).astype(np.float32)
+        sp.io.wavfile.write("./sound/sound.wav", int (sample_rate), np.array(np_audio))
+
+
 
 
 

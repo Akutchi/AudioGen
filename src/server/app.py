@@ -41,9 +41,9 @@ def Generate_Wave_Image (item : FunctionJSON):
 def Generate_Wave_Sound (item : FunctionJSON):
 
     wave = C_W.Waves (item.amplitudes, item.shifts, item.functions, item.T)
-    wave.Generate_Sound
+    wave.Generate_Sound ()
 
-    return responses.FileResponse ("sound/test.mp3", media_type="audio/mpeg")
+    return responses.FileResponse ("sound/sound.wav", media_type="audio/wav")
 
 @app.post ("/Get_Filter_With")
 def Generate_Filter_Image (item : FilterJSON):
