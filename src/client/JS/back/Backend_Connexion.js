@@ -16,12 +16,22 @@ async function UpdateResult () {
         body : JSON.stringify (Filtered_Functions)
     }
 
-    const Response = await fetch (GET_WAVE_IMAGE, Req)
+    const ImgResponse = await fetch (GET_WAVE_IMAGE, Req)
     .then (response => {return response.body.getReader().read()});
 
     img = document.getElementById ("Res_Img");
-    img.setAttribute ("src", URL.createObjectURL (new File ([Response.value],
+    img.setAttribute ("src", URL.createObjectURL (new File ([ImgResponse.value],
                                                             "result.png")));
+
+    const SoundResponse = await fetch (GET_WAVE_SOUND, Req)
+    .then (response => {return response.body.getReader().read()});
+
+    audio = document.getElementById ("sound");
+    console.log (SoundResponse);
+    audio.setAttribute ("src", URL.createObjectURL (
+                                                    new File (
+                                                        [SoundResponse.value],
+                                                        "result.mp3")));
 }
 
 async function GetImageFromServer (json_file, router) {

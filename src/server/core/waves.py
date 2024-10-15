@@ -1,6 +1,7 @@
 from typing import List
 
 import numpy as np
+import scipy as sp
 
 import maths.constants as M_C
 
@@ -61,6 +62,18 @@ class Waves (Base_Object) :
 
     def Generate_Image (self, visitor):
         visitor.Generate (self)
+
+    def Generate_Sound (self):
+
+        sample_rate = 44100
+        duration_ms = 2000
+        num_samples = duration_ms * (sample_rate / 1000.0)
+        audio = []
+        for t in range (0, num_samples):
+            audio.append (self.Get_Value (t))
+
+        np_audio = np.array(self.audio).astype(np.float32)
+        sp.io.wavfile.write("./sound/sound.wav", sample_rate, np.array(np_audio))
 
 
 
