@@ -1,38 +1,52 @@
 # AudioGen
 
 ![Visual](./doc/Visual.png)
+![Visual](./doc/Visual2.png)
 
 A basic wave generator and filtering API (with sound !)
 
 # Description
 
 This website, is an interface to a signal processing API.
-The API, developped with fastapi, is composed of two routes,
+The API, developped with fastapi, is composed of several routes,
 
-- Get_Wave_With :
-
-needs a json of the form
-```json
-{
-    "amplitudes" : [],
-    "shifts" : [],
-    "functions" : []
-}
-```
-
-and return an image of the wave as described by the JSON
-
-- Get_Filter_With :
+- /Get_Wave_With :
 
 needs a json of the form
 ```json
 {
-    "coefficients" : ["order", "fc/f0", "Q"],
-    "gain" : "int"
+    "amplitudes" : [1.0, 2.0, 0.5],
+    "shifts"     : [0.2, 0.5, 1.2],
+    "functions"  : ["Cos", "Sin", "Sin"]
 }
 ```
 
-and return an image of the filter as described by the JSON
+and return an image of the wave.
+
+- /Get_Wave_Sound :
+
+needs a json of the form
+```json
+{
+    "amplitudes" : [1.0, 2.0, 0.5],
+    "shifts"     : [0.2, 0.5, 1.2],
+    "functions"  : ["Cos", "Sin", "Sin"]
+}
+```
+
+and return a base64 encoding of a .wav file of the wave
+
+- /Get_Filter_With :
+
+needs a json of the form
+```json
+{
+    "coefficients" : [2.0, 10.0, 2.0], // "order", "fc/f0", "Q"
+    "gain" : 2.0
+}
+```
+
+and return an image of the filter.
 
 Each time an input is modified, a call to the backend is done in order to update
 both the image associated with the modification, and the final result. Response
@@ -49,7 +63,6 @@ Either way, those are :
 - scipy >= 1.10.1
 - matplotlib >= 3.7.5
 - fastAPI >= 0.1.0
-- pymp3 >= 0.2.0
 - Unittest
 
 To lunch the backend, please use ```fastapi dev src/server/app.py``` in ./src
